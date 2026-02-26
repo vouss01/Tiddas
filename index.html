@@ -5108,6 +5108,7 @@ body.replay-active .replay-badge {
 .ol-action-create::after { background: radial-gradient(ellipse at center, rgba(240,200,80,0.12), transparent 70%); }
 .ol-action-join::after   { background: radial-gradient(ellipse at center, rgba(0,229,255,0.10), transparent 70%); }
 .ol-action-recent::after { background: radial-gradient(ellipse at center, rgba(76,222,128,0.10), transparent 70%); }
+.ol-action-rejoin::after { background: radial-gradient(ellipse at center, rgba(255,140,0,0.12), transparent 70%); }
 .ol-action-btn:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.18); }
 .ol-action-btn:hover::after { opacity: 1; }
 .ol-action-btn:active { transform: translateY(0); }
@@ -5123,6 +5124,7 @@ body.replay-active .replay-badge {
 .ol-action-create .ol-action-icon { color: var(--ol-gold); }
 .ol-action-join   .ol-action-icon { color: var(--ol-cyan); }
 .ol-action-recent .ol-action-icon { color: var(--ol-green); }
+.ol-action-rejoin .ol-action-icon { color: #ff8c00; }
 .ol-action-main {
   font-size: 0.88rem;
   font-weight: 800;
@@ -8919,7 +8921,7 @@ Mêmes règles que TIDDEST. Victoire inversée: gagnez en perdant tous vos pions
       <!-- Bloc Pseudo -->
       <section class="ol-section" aria-label="Votre pseudo">
         <label class="ol-section-label" for="online-your-name">
-          <span class="ol-section-num">01</span>Votre pseudo
+          <span class="ol-section-num">01</span><span data-i18n="onlineProfileLabel">Votre pseudo</span>
         </label>
         <div class="ol-input-wrap">
           <span class="ol-input-icon" aria-hidden="true">
@@ -8929,7 +8931,7 @@ Mêmes règles que TIDDEST. Victoire inversée: gagnez en perdant tous vos pions
           </span>
           <input class="ol-input" id="online-your-name" maxlength="24"
                  autocomplete="nickname" inputmode="text"
-                 data-i18n-placeholder="onlineNamePlaceholder" placeholder="Ex: Boussad" />
+                 data-i18n-placeholder="onlineNamePlaceholder" placeholder="Ex: Yani" />
         </div>
         <p class="ol-hint" data-i18n="onlineNameHint">Mémorisé localement sur cet appareil</p>
       </section>
@@ -8937,7 +8939,7 @@ Mêmes règles que TIDDEST. Victoire inversée: gagnez en perdant tous vos pions
       <!-- Bloc Salon -->
       <section class="ol-section" aria-label="Rejoindre ou créer un salon">
         <div class="ol-section-label">
-          <span class="ol-section-num">02</span>Salon de jeu
+          <span class="ol-section-num">02</span><span data-i18n="onlineSalonLabel">Salon de jeu</span>
         </div>
 
         <div class="ol-actions">
@@ -8971,6 +8973,16 @@ Mêmes règles que TIDDEST. Victoire inversée: gagnez en perdant tous vos pions
             </span>
             <span class="ol-action-main" data-i18n="onlineRecentRooms">Récents</span>
             <span class="ol-action-sub" data-i18n="onlineRejoinLastDesc">Reprendre une partie</span>
+          </button>
+
+          <button class="ol-action-btn ol-action-rejoin" id="online-rejoin-last" style="display:none;" type="button">
+            <span class="ol-action-icon" aria-hidden="true">
+              <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 .49-6.51"/>
+              </svg>
+            </span>
+            <span class="ol-action-main" data-i18n="onlineRejoinLast">Reprendre le dernier salon</span>
+            <span class="ol-action-sub" data-i18n="onlineRejoinLastDesc">Reconnexion rapide</span>
           </button>
         </div>
 
@@ -9039,7 +9051,7 @@ Mêmes règles que TIDDEST. Victoire inversée: gagnez en perdant tous vos pions
           </div>
           <div class="ol-player-info">
             <span class="ol-player-tag">J1</span>
-            <span class="ol-player-name" id="online-p1-name">En attente…</span>
+            <span class="ol-player-name" id="online-p1-name" data-i18n="onlineChipPending">En attente…</span>
           </div>
           <span class="ol-player-status-dot"></span>
         </div>
@@ -9052,7 +9064,7 @@ Mêmes règles que TIDDEST. Victoire inversée: gagnez en perdant tous vos pions
           </div>
           <div class="ol-player-info">
             <span class="ol-player-tag">J2</span>
-            <span class="ol-player-name" id="online-p2-name">En attente…</span>
+            <span class="ol-player-name" id="online-p2-name" data-i18n="onlineChipPending">En attente…</span>
           </div>
           <span class="ol-player-status-dot"></span>
         </div>
@@ -11104,6 +11116,8 @@ woSubDefeat: "— Fin de partie —",
 woSubVictory: "— Victoire —",
 
 onlineTitle: "Multijoueur en ligne",
+onlineProfileLabel: "Votre pseudo",
+onlineSalonLabel: "Salon de jeu",
 onlineProfileTitle: "Profil",
 onlineProfileDesc: "Ton pseudo sera affiché à l’adversaire",
 onlineYourNameLabel: "Ton nom",
@@ -11123,7 +11137,7 @@ onlineShare: "Partagez ce code :",
 onlineStart: "Lancer la partie",
 onlineStartDesc: "Quand 2 joueurs sont connectés",
 onlineNotConfigured: "Le serveur en ligne n'est pas configuré. Consultez le README pour renseigner l'URL.",
-onlineNamePlaceholder: "Ex: Boussad",
+onlineNamePlaceholder: "Ex: Lyne",
 onlineCopyCodeAria: "Copier le code",
 onlineChooseAction: "Choisis : créer ou rejoindre un salon.",
 onlineCodeCopied: "Code copié ✅",
@@ -11187,25 +11201,25 @@ statsOnlineMode: "En ligne",
 statsDraws: "Nuls",
 },
 kab: {
-backToMenu: "Menu",
-onlineRematchHint: "Revanche",
-onlineReadyRematch: "Neɣ d iwejden",
-onlineReadyRematchOn: "Iwejden ✅",
-onlineRematchNote: "Initen ttbedden deg yal revanche.",
-onlineRematchReadyToast: "Revanche: iwejden. Ṛǧu amgraw…",
-onlineRematchGuestInfo: "Tura tfa. Sit ɣef « Neɣ d iwejden » i revanche.",
-onlineRematchWaitReady: "Ṛǧu imeddukal ad ilin iwejden…",
-onlineRematchCanStart: "Akk iwejden ✅",
-onlineRematchStart: "Bdu revanche",
-onlineRematchStartDesc: "Mi ara ilin sin iwejden",
-onlineStatusPlayingHost: "Uraren tura. Abrid!",
-onlineStatusPlayingGuest: "Uraren tura. Abrid!",
-onlineGameFinished: "Uraren-agi yefra.",
+backToMenu: "Aɣaram",
+onlineRematchHint: "Ttaṛ",
+onlineReadyRematch: "Wejdeɣ",
+onlineReadyRematchOn: "Iyyan ✅",
+onlineRematchNote: "Initen ttbeddilen deg yal ttaṛ.",
+onlineRematchReadyToast: "Ttaṛ: iheyya. Ṛǧu axṣim-ik…",
+onlineRematchGuestInfo: "Timlilit tekkfa. Sit ɣef « Wejdeɣ» i Ttaṛ.",
+onlineRematchWaitReady: "Ṛǧu ameddakkul ad iwjed…",
+onlineRematchCanStart: "Wejden yakk ✅",
+onlineRematchStart: "Bdu timlit n ttaṛ",
+onlineRematchStartDesc: "Mi wejden i sin",
+onlineStatusPlayingHost: "Ala tetturarem. Afud iggerzen!",
+onlineStatusPlayingGuest: "Ala tetturarem. Afud iggerzen !",
+onlineGameFinished: "Urar-ayi yefra.",
 statsSectionActivity: "Armud",
 statsPlacementsPerGame: "Aseɣẓan / urar",
-statsMovesPerGame: "Tirawin / urar",
-statsActionsPerGame: "Tir / urar",
-statsOnlineTopOpponent: "Amgraw ameqqran",
+statsMovesPerGame: "Usrusuy / temlilit",
+statsActionsPerGame: "Unaqel / temlilit",
+statsOnlineTopOpponent: "axṣim ameqqran",
 statsActionsCount: "Tirawin",
 statsPlacementsCount: "Aseɣẓan",
 statsMovesCount: "Tirawin",
@@ -11483,6 +11497,8 @@ woSubDefeat: "— Taggara n wurar —",
 woSubVictory: "— Rbeḥ —",
 
 onlineTitle: "Urar d umeddakul s lebɛid",
+onlineProfileLabel: "Nekkwa",
+onlineSalonLabel: "Taslaḍt n wurar",
 onlineProfileTitle: "Amaɣnu",
 onlineProfileDesc: "Isem-ik ad d-iban i umeddakul-ik",
 onlineYourNameLabel: "Isem-ik",
@@ -11522,6 +11538,7 @@ onlineSendError: "Tuccḍa deg tuznit. Senqed tuqqna Back4App.",
 onlineNoRoomActive: "Ulac taslaḍt iheyyan.",
 onlineOnlyHostStart: "Ala win yebnan taslaḍt (host) i yezmeren ad yebdu urar.",
 onlineBack4AppNotReady: "Back4App ur yewjid ara.",
+onlineNotConfigured: "Aseṛgas s internet ur yettuseɣwer ara. Wali README i wakken ad tseɣwreḍ URL.",
 onlineWaitTwoPlayers: "Rǧu alamma qqnen-d i 2 yimyuraren.",
 onlineStartOK: "yebda wurar ✅",
 onlineStartErrorPrefix: "Tuccḍa n beddu : {msg}",
@@ -11530,34 +11547,34 @@ onlineRecentRooms: "tislaḍin n yakan",
 onlineRejoinLast: "Uɣal ɣer teslaḍ-t taneggarut",
 onlineRejoinLastDesc: "Tuqqna s tazzla",
 notYourTurn: "Mačči d nnuba-k.",
-onlineInviteBtn: "📤 Ɛiwet ameddakel",
+onlineInviteBtn: "📤 Ɛreḍ-d ameddakul",
 onlinePanelCode: "Tasarut kan",
 onlinePanelLink: "Aseɣwen n wurar",
-onlinePanelShare: "Bḍu",
-onlineAutoJoinDetected: "Teslaḍt tettwaf : {code}",
-onlineAutoJoinWaiting: "Kcem isem-ik i wakken ad tedduḍ",
-onlineJoinParam: "Tuqqna yidir ɣer {code}…",
+onlinePanelShare: "Azen Tinnubgga",
+onlineAutoJoinDetected: "Taslaḍt theyya : {code}",
+onlineAutoJoinWaiting: "sekcem isem-ik i wakken ad d-qqimeḍ ɣer wurar",
+onlineJoinParam: "Tuqqna ɣer {code}…",
 onlineRecentEmpty: "Ulac tislaḍin",
 onlineChipVs: "mgal",
 onlineChipPending: "Yettṛaǧu",
-onlineCodePreview: "Tamsart-ik :",
+onlineCodePreview: "Tasarut-ik :",
 onlineCodeConfirm: "Asnulfu n teslaḍt ?",
 onlineLinkCopied: "Aseɣwen yettwanqal ✅",
 onlineCopyLinkAria: "Nqel aseɣwen",
-onlineShareLinkAria: "Bḍu",
-onlineShareText: "Qqim ɣer teslaḍt-iw n Tiddas :",
+onlineShareLinkAria: "azen i weḥbib",
+onlineShareText: "Qqim ɣer teslaḍt n Tiddas:",
 statsSectionGlobal: "Agemmuḍ s umata",
 statsSectionEfficiency: "Tawuri",
 statsSectionByMode: "S urar",
 statsSectionLastGame: "Timlilit taneggarut",
-statsBestWinTime: "Irebḥ ameqqran",
+statsBestWinTime: "Rrebḥ ameqqran",
 statsCaptPerGame: "Učči / timlilit",
 statsMillsPerGame: "Atellet / timlilit",
 statsAvgDurPerMode: "Akud alemmas",
-statsStreakCurrent: "Angal tura",
-statsStreakBest: "Angal ameqqran",
+statsStreakCurrent: "Agraw n tura",
+statsStreakBest: "Agraw ameqqran",
 statsByDifficulty: "S uswir",
-statsOnlineOpponents: "Ixṣimawen",
+statsOnlineOpponents: "Ixṣimen",
 statsVariantLabel: "Tawsit",
 statsActionsCount: "Tikkal",
 statsLevelProgress: "Aswir d-iteddun",
@@ -11852,6 +11869,8 @@ woSubDefeat: "— Game over —",
 woSubVictory: "— Victory —",
 
 onlineTitle: "Online multiplayer",
+onlineProfileLabel: "Your nickname",
+onlineSalonLabel: "Game room",
 onlineProfileTitle: "Profile",
 onlineProfileDesc: "Your nickname will be shown to your opponent",
 onlineYourNameLabel: "Your name",
